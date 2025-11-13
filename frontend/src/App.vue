@@ -1,6 +1,9 @@
 <template>
   <div class="hero">
-    <h1 class="hero-text">Hi, I'm Dima</h1>
+    <div class="hero-content">
+      <h1 class="hero-text">Hi, I'm Dima</h1>
+      <p class="hero-subtext">here's some cool stuff</p>
+    </div>
   </div>
 </template>
 
@@ -15,19 +18,20 @@
   align-items: center;
   justify-content: center;
 
-  /* Catppuccin Mocha gradient */
+  /* More vibrant Catppuccin Mocha gradient with accent colors */
   background: linear-gradient(
     135deg,
     #1e1e2e 0%,    /* Base */
-    #313244 25%,   /* Surface0 */
-    #45475a 50%,   /* Surface1 */
-    #585b70 75%,   /* Surface2 */
-    #313244 100%   /* Surface0 */
+    #313244 20%,   /* Surface0 */
+    #89b4fa 40%,   /* Blue */
+    #cba6f7 60%,   /* Mauve */
+    #f38ba8 80%,   /* Red */
+    #1e1e2e 100%   /* Base */
   );
 
   /* Animated gradient */
   background-size: 400% 400%;
-  animation: gradient 15s ease infinite;
+  animation: gradient 20s ease infinite;
 }
 
 @keyframes gradient {
@@ -42,12 +46,16 @@
   }
 }
 
+.hero-content {
+  text-align: center;
+}
+
 .hero-text {
   font-size: clamp(3rem, 8vw, 6rem);
   font-weight: 700;
   color: #cdd6f4; /* Catppuccin Mocha Text */
-  text-align: center;
   letter-spacing: -0.02em;
+  margin: 0;
 
   /* Subtle text shadow for depth */
   text-shadow:
@@ -56,6 +64,17 @@
 
   /* Smooth fade-in animation */
   animation: fadeIn 1.5s ease-out;
+}
+
+.hero-subtext {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: 400;
+  color: #bac2de; /* Catppuccin Mocha Subtext1 */
+  margin-top: 1rem;
+  letter-spacing: 0.02em;
+
+  /* Delayed fade-in animation */
+  animation: fadeIn 1.5s ease-out 0.3s both;
 }
 
 @keyframes fadeIn {
