@@ -18,32 +18,15 @@
   align-items: center;
   justify-content: center;
 
-  /* More vibrant Catppuccin Mocha gradient with accent colors */
+  /* Static darker purple gradient for better text visibility */
   background: linear-gradient(
     135deg,
     #1e1e2e 0%,    /* Base */
-    #313244 20%,   /* Surface0 */
-    #89b4fa 40%,   /* Blue */
-    #cba6f7 60%,   /* Mauve */
-    #f38ba8 80%,   /* Red */
+    #2d2b55 25%,   /* Dark purple */
+    #3d3a6e 50%,   /* Medium purple */
+    #2d2b55 75%,   /* Dark purple */
     #1e1e2e 100%   /* Base */
   );
-
-  /* Animated gradient */
-  background-size: 400% 400%;
-  animation: gradient 20s ease infinite;
-}
-
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
 }
 
 .hero-content {
