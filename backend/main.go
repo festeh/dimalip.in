@@ -15,7 +15,12 @@ type HelloResponse struct {
 
 func main() {
 	// Get the path to the frontend dist directory
-	distPath := filepath.Join("..", "frontend", "dist")
+	// In production: /opt/dimalip.in/dist
+	// In development: ../frontend/dist
+	distPath := os.Getenv("DIST_PATH")
+	if distPath == "" {
+		distPath = filepath.Join("..", "frontend", "dist")
+	}
 
 	// Create a file server for static files
 	fs := http.FileServer(http.Dir(distPath))

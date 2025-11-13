@@ -1,0 +1,94 @@
+name: Deploy to Ionos
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Build Backend
+        run: |
+          cd backend
+          CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o dimalip-server main.go
+
+      - name: Build Frontend
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+
+      - name: Deploy to Ionos Server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "backend/dimalip-server,frontend/dist/*"
+          target: "/opt/dimalip.in"
+          strip_components: 1
+          rm: true
+
+      - name: Setup and Restart Service
+        uses: appleboy/ssh-action@v1.2.0
+        env:
+          BACKEND_PORT: ${{ secrets.BACKEND_PORT }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: BACKEND_PORT
+          script: |
+            # Set permissions
+            chmod +x /opt/dimalip.in/dimalip-server
+
+            # Create .env file
+            cat > /opt/dimalip.in/.env << EOF
+            PORT=${BACKEND_PORT}
+            DIST_PATH=/opt/dimalip.in/dist
+            EOF
+
+            # Create systemd service if it doesn't exist
+            if [ ! -f /etc/systemd/system/dimalipin-backend.service ]; then
+              cat > /etc/systemd/system/dimalipin-backend.service << 'EOF'
+            [Unit]
+            Description=Dimalip.in Backend
+            After=network.target
+
+            [Service]
+            Type=simple
+            User=root
+            WorkingDirectory=/opt/dimalip.in
+            ExecStart=/opt/dimalip.in/dimalip-server
+            Restart=always
+            RestartSec=10
+            EnvironmentFile=/opt/dimalip.in/.env
+
+            [Install]
+            WantedBy=multi-user.target
+            EOF
+              systemctl daemon-reload
+              systemctl enable dimalipin-backend
+            fi
+
+            # Restart backend service
+            systemctl restart dimalipin-backend
+            systemctl status dimalipin-backend --no-pager
+
+            echo "Deployment completed successfully!"
