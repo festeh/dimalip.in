@@ -1,7 +1,7 @@
 <template>
   <header class="header">
     <nav class="nav">
-      <RouterLink to="/" class="logo">Dima</RouterLink>
+      <RouterLink to="/" class="logo">Home</RouterLink>
       <RouterLink to="/about" class="nav-link">About</RouterLink>
     </nav>
   </header>

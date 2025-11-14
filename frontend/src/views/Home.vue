@@ -44,9 +44,6 @@
   text-shadow:
     0 2px 4px rgba(0, 0, 0, 0.3),
     0 4px 8px rgba(0, 0, 0, 0.2);
-
-  /* Smooth fade-in animation */
-  animation: fadeIn 1.5s ease-out;
 }
 
 .hero-subtext {
@@ -55,19 +52,5 @@
   color: #bac2de; /* Catppuccin Mocha Subtext1 */
   margin-top: 1rem;
   letter-spacing: 0.02em;
-
-  /* Delayed fade-in animation */
-  animation: fadeIn 1.5s ease-out 0.3s both;
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>

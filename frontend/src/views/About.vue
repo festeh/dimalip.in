@@ -64,11 +64,9 @@
   font-weight: 700;
   color: #cdd6f4;
   margin: 0 0 3rem 0;
-  animation: fadeIn 1s ease-out;
 }
 
 .about-section {
-  animation: fadeIn 1.5s ease-out 0.3s both;
 }
 
 .about-text {
@@ -114,16 +112,5 @@
 
 .link:active {
   transform: translateY(0);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 </style>
