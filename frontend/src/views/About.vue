@@ -1,8 +1,6 @@
 <template>
   <div class="about-page">
     <div class="about-content">
-      <RouterLink to="/" class="back-link">← Back</RouterLink>
-
       <h1 class="about-title">About Me</h1>
 
       <div class="about-section">
@@ -34,7 +32,6 @@
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 </script>
 
 <style scoped>
@@ -128,20 +125,5 @@ import { RouterLink } from 'vue-router'
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.back-link {
-  color: #a6adc8;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 400;
-  transition: color 0.3s ease;
-  display: inline-block;
-  margin-bottom: 2rem;
-  animation: fadeIn 0.8s ease-out;
-}
-
-.back-link:hover {
-  color: #89b4fa;
 }
 </style>

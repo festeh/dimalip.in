@@ -3,16 +3,11 @@
     <div class="hero-content">
       <h1 class="hero-text">Hi, I'm Dima</h1>
       <p class="hero-subtext">here's some cool stuff</p>
-
-      <div class="nav-link">
-        <RouterLink to="/about" class="about-link">About Me</RouterLink>
-      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
 </script>
 
 <style scoped>
@@ -74,33 +69,5 @@ import { RouterLink } from 'vue-router'
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.nav-link {
-  margin-top: 3rem;
-  animation: fadeIn 1.5s ease-out 0.6s both;
-}
-
-.about-link {
-  color: #89b4fa;
-  text-decoration: none;
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  font-weight: 500;
-  padding: 0.75rem 2rem;
-  border: 2px solid #89b4fa;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.about-link:hover {
-  background-color: #89b4fa;
-  color: #1e1e2e;
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(137, 180, 250, 0.3);
-}
-
-.about-link:active {
-  transform: translateY(0);
 }
 </style>
