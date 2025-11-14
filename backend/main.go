@@ -13,6 +13,25 @@ type HelloResponse struct {
 	Status  string `json:"status"`
 }
 
+// VisualizationCard represents metadata for a standalone visualization asset.
+type VisualizationCard struct {
+	ID          string   `json:"id"`
+	Title       string   `json:"title"`
+	Description string   `json:"description"`
+	URL         string   `json:"url"`
+	Tags        []string `json:"tags"`
+}
+
+var visualizationCards = []VisualizationCard{
+	{
+		ID:          "ipv4-layer3",
+		Title:       "IPv4 Layer 3 Routing",
+		Description: "Interactive IPv4 routing visualization with Catppuccin styling.",
+		URL:         "/Visualizations/internet-protocol/ipv4-visualization.html",
+		Tags:        []string{"Networking", "IPv4", "Routing"},
+	},
+}
+
 func main() {
 	// Get the path to the frontend dist directory
 	// In production: /opt/dimalip.in/dist
@@ -27,6 +46,7 @@ func main() {
 
 	// Set up routes
 	http.HandleFunc("/api/hello", handleHello)
+	http.HandleFunc("/api/visualizations", handleVisualizations)
 
 	// Serve static files for all other routes
 	http.Handle("/", fs)
@@ -68,4 +88,28 @@ func handleHello(w http.ResponseWriter, r *http.Request) {
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(response)
+}
+
+func handleVisualizations(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Access-Control-Allow-Methods", "GET, OPTIONS")
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+
+	if r.Method == "OPTIONS" {
+		w.WriteHeader(http.StatusOK)
+		return
+	}
+
+	if r.Method != http.MethodGet {
+		http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		return
+	}
+
+	limit := len(visualizationCards)
+	if limit > 16 {
+		limit = 16
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(visualizationCards[:limit])
 }
