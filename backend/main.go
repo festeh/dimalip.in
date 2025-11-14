@@ -15,20 +15,18 @@ type HelloResponse struct {
 
 // VisualizationCard represents metadata for a standalone visualization asset.
 type VisualizationCard struct {
-	ID          string   `json:"id"`
-	Title       string   `json:"title"`
-	Description string   `json:"description"`
-	URL         string   `json:"url"`
-	Tags        []string `json:"tags"`
+	ID    string `json:"id"`
+	Title string `json:"title"`
+	URL   string `json:"url"`
+	Icon  string `json:"icon,omitempty"`
 }
 
 var visualizationCards = []VisualizationCard{
 	{
-		ID:          "ipv4-layer3",
-		Title:       "IPv4 Layer 3 Routing",
-		Description: "Interactive IPv4 routing visualization with Catppuccin styling.",
-		URL:         "/Visualizations/internet-protocol/ipv4-visualization.html",
-		Tags:        []string{"Networking", "IPv4", "Routing"},
+		ID:    "ipv4-layer3",
+		Title: "IP Routing",
+		URL:   "/Visualizations/internet-protocol/ipv4-visualization.html",
+		Icon:  "/Visualizations/internet-protocol/icon.png",
 	},
 }
 
