@@ -23,16 +23,18 @@ body {
   min-height: 100vh;
   background: var(--base);
   color: var(--text);
-  font-family: "Inter", "Segoe UI", Roboto, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 .page {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 40px 24px 80px;
+  max-width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 24px;
   display: flex;
   flex-direction: column;
-  gap: 32px;
+  gap: 20px;
+  overflow: hidden;
 }
 
 .control-panel {
@@ -42,6 +44,7 @@ body {
   align-items: center;
   text-align: center;
   gap: 16px;
+  flex-shrink: 0;
 }
 
 .control-panel .titles h1 {
@@ -67,7 +70,11 @@ body {
   border-radius: 5px;
   cursor: pointer;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+#send-packet-btn:hover {
+  background: var(--mauve);
 }
 
 #send-packet-btn:active {
@@ -89,66 +96,91 @@ body {
 
 .visualization-shell {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(260px, 320px);
-  gap: 2rem;
-  align-items: start;
+  grid-template-columns: minmax(220px, 1fr) minmax(0, 3fr) minmax(220px, 1fr);
+  gap: 24px;
+  flex: 1;
+  min-height: 0;
+  align-items: stretch;
 }
 
 .canvas-container {
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  overflow-x: auto;
-  padding-bottom: 1rem;
+  align-items: center;
+  overflow: hidden;
 }
 
 .canvas-container canvas {
   border-radius: 12px;
   border: 1px solid rgba(95, 99, 123, 0.4);
-  width: 100%;
-  max-width: 1200px;
-  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
 }
 
-.routing-column {
+.routing-sidebar {
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  height: 100%;
+  overflow: hidden;
 }
 
 .routing-table-card {
   background: var(--surface0);
   border: 2px solid var(--peach);
   border-radius: 12px;
-  padding: 1.5rem 1.25rem;
+  padding: 1rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
 }
 
 .routing-table-card h2 {
-  margin: 0 0 1rem 0;
+  margin: 0 0 0.75rem 0;
   color: var(--peach);
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .routing-table {
   width: 100%;
   border-collapse: collapse;
-  font-family: "JetBrains Mono", "Fira Code", Menlo, Consolas, monospace;
+  font-family: "JetBrains Mono", "SF Mono", Monaco, Consolas, "Courier New", monospace;
+  flex: 1;
+  overflow-y: auto;
+  display: block;
+}
+
+.routing-table thead {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
 }
 
 .routing-table thead th {
   background: var(--surface1);
-  padding: 12px;
+  padding: 8px 6px;
   text-align: left;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
   color: var(--text);
 }
 
+.routing-table tbody {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
 .routing-table tbody td {
-  padding: 10px 12px;
+  padding: 8px 6px;
   border-bottom: 1px solid var(--surface2);
-  font-size: 0.85rem;
+  font-size: 0.7rem;
+  word-break: break-all;
 }
 
 .routing-table tbody tr:nth-child(even) {
@@ -168,22 +200,37 @@ body {
 }
 
 @media (max-width: 1024px) {
+  .page {
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+
   .visualization-shell {
     grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr auto;
+    min-height: 600px;
   }
 
-  .routing-column {
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 1rem;
-  }
-
-  .routing-table-card {
-    flex: 1 1 260px;
+  .routing-sidebar:first-of-type {
+    order: 1;
   }
 
   .canvas-container {
-    order: -1;
+    order: 0;
+    min-height: 400px;
+  }
+
+  .routing-sidebar:last-of-type {
+    order: 2;
+  }
+
+  .routing-sidebar {
+    height: auto;
+  }
+
+  .routing-table-card {
+    height: auto;
   }
 }
 

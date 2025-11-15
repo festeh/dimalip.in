@@ -4,24 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>IPv4 Layer 3 Network Visualization</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./ipv4-visualization.css" />
   </head>
   <body>
     <div class="page">
       <section class="control-panel">
         <div class="titles">
-          <h1>IPv4 Layer 3 Network Visualization</h1>
-          <p>Interactive demonstration of packet routing between subnets</p>
+          <h1>Internet Protocol Visualization</h1>
         </div>
         <button id="send-packet-btn" type="button">Send Random Packet</button>
         <div id="annotation" class="annotation">Click 'Send Random Packet' to begin</div>
       </section>
-      <div id="canvas-container" class="canvas-container" aria-label="IPv4 Routing Visualization"></div>
 
       <section class="visualization-shell">
-        <div id="canvas-container" class="canvas-container" aria-label="IPv4 Routing Visualization"></div>
-
-        <div class="routing-column" aria-label="Gateway routing tables">
+        <aside class="routing-sidebar">
           <article class="routing-table-card">
             <h2>Gateway A</h2>
             <table class="routing-table">
@@ -35,7 +34,11 @@
               <tbody id="gateway-a-table"></tbody>
             </table>
           </article>
+        </aside>
 
+        <div id="canvas-container" class="canvas-container" aria-label="IPv4 Routing Visualization"></div>
+
+        <aside class="routing-sidebar">
           <article class="routing-table-card">
             <h2>Gateway B</h2>
             <table class="routing-table">
@@ -49,7 +52,7 @@
               <tbody id="gateway-b-table"></tbody>
             </table>
           </article>
-        </div>
+        </aside>
       </section>
     </div>
 

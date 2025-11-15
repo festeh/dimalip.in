@@ -20,26 +20,26 @@ const subnets = [
     network: '192.168.1.0/24',
     mask: '255.255.255.0',
     accent: colors.blue,
-    x: 50,
-    y: 150,
-    width: 350,
-    height: 300
+    x: 30,
+    y: 80,
+    width: 280,
+    height: 420
   },
   {
     name: 'Subnet B',
     network: '192.168.2.0/24',
     mask: '255.255.255.0',
     accent: colors.green,
-    x: 800,
-    y: 150,
-    width: 350,
-    height: 300
+    x: 490,
+    y: 80,
+    width: 280,
+    height: 420
   }
 ];
 
-const HOST_COLUMN_OFFSET = 120;
-const HOST_TOP_PADDING = 110;
-const HOST_VERTICAL_SPACING = 62;
+const HOST_COLUMN_OFFSET = 140;
+const HOST_TOP_PADDING = 100;
+const HOST_VERTICAL_SPACING = 70;
 const HOSTS_PER_SUBNET = 4;
 
 const createHostYPositions = (subnetY) =>
@@ -85,20 +85,19 @@ const hosts = [
 
 const PACKET_SPEED = 0.01;
 
-const gatewayWidth = 160;
-const gatewayHeight = 80;
+const gatewayWidth = 140;
+const gatewayHeight = 70;
 
 const gatewayA = {
   name: 'Gateway A',
   lanIP: '192.168.1.1',
   wanIP: '10.0.0.1',
-  x: 380,
-  y: 290,
-  wanPosition: { x: 520, y: 470 },
+  x: 310,
+  y: 270,
+  wanPosition: { x: 340, y: 550 },
   routingTable: [
     { dest: '192.168.1.0/24', nextHop: 'directly connected', iface: '192.168.1.1' },
-    { dest: '192.168.2.0/24', nextHop: '10.0.0.2', iface: '10.0.0.1' },
-    { dest: '0.0.0.0/0', nextHop: '10.0.0.2', iface: '10.0.0.1' }
+    { dest: '192.168.2.0/24', nextHop: '10.0.0.2', iface: '10.0.0.1' }
   ]
 };
 
@@ -106,19 +105,18 @@ const gatewayB = {
   name: 'Gateway B',
   lanIP: '192.168.2.1',
   wanIP: '10.0.0.2',
-  x: 820,
-  y: 290,
-  wanPosition: { x: 680, y: 470 },
+  x: 490,
+  y: 270,
+  wanPosition: { x: 460, y: 550 },
   routingTable: [
     { dest: '192.168.2.0/24', nextHop: 'directly connected', iface: '192.168.2.1' },
-    { dest: '192.168.1.0/24', nextHop: '10.0.0.1', iface: '10.0.0.2' },
-    { dest: '0.0.0.0/0', nextHop: '10.0.0.1', iface: '10.0.0.2' }
+    { dest: '192.168.1.0/24', nextHop: '10.0.0.1', iface: '10.0.0.2' }
   ]
 };
 
 const wanLink = {
-  start: { x: 520, y: 470 },
-  end: { x: 680, y: 470 },
+  start: { x: 340, y: 550 },
+  end: { x: 460, y: 550 },
   label: 'WAN: 10.0.0.0/30',
   endpoints: '10.0.0.1 ↔ 10.0.0.2'
 };
@@ -298,7 +296,7 @@ const sketch = (p) => {
   pInstance = p;
 
   p.setup = () => {
-    const canvas = p.createCanvas(1200, 700);
+    const canvas = p.createCanvas(800, 600);
     canvas.parent('canvas-container');
     p.textFont('Inter, "JetBrains Mono", monospace');
     p.textAlign(p.CENTER, p.CENTER);
@@ -363,7 +361,7 @@ function drawHosts(p) {
 
     // Inner screen
     p.noStroke();
-    p.fill(colors.surface0);
+    p.fill(colors.base);
     p.rect(
       host.x - halfWidth + innerPadding,
       host.y - halfHeight + innerPadding,
@@ -382,19 +380,19 @@ function drawHosts(p) {
     // Label
     p.fill(colors.text);
     p.textAlign(p.CENTER, p.TOP);
-    p.textSize(11);
-    p.text(host.ip, host.x, host.y + halfHeight + standHeight + baseHeight + 6);
+    p.textSize(10);
+    p.text(host.ip, host.x, host.y + halfHeight + standHeight + baseHeight + 4);
   });
 }
 
 function drawGateways(p) {
   [gatewayA, gatewayB].forEach((gateway) => {
-    p.stroke(colors.yellow);
+    p.stroke(colors.peach);
     p.strokeWeight(2);
-    p.fill(colors.peach);
+    p.fill(colors.surface2);
     p.rect(gateway.x - gatewayWidth / 2, gateway.y - gatewayHeight / 2, gatewayWidth, gatewayHeight, 8);
 
-    p.fill(colors.base);
+    p.fill(colors.text);
     p.noStroke();
     p.textAlign(p.CENTER, p.CENTER);
     p.textSize(13);
@@ -407,16 +405,16 @@ function drawGateways(p) {
 
 function drawWANLink(p) {
   p.stroke(colors.mauve);
-  p.strokeWeight(3);
+  p.strokeWeight(4);
   p.line(wanLink.start.x, wanLink.start.y, wanLink.end.x, wanLink.end.y);
 
   p.noStroke();
   p.fill(colors.mauve);
   p.textAlign(p.CENTER, p.BOTTOM);
-  p.textSize(12);
-  p.text(wanLink.label, (wanLink.start.x + wanLink.end.x) / 2, wanLink.start.y - 16);
+  p.textSize(11);
+  p.text(wanLink.label, (wanLink.start.x + wanLink.end.x) / 2, wanLink.start.y - 14);
   p.fill(colors.subtext0);
-  p.textSize(10);
+  p.textSize(9);
   p.text(wanLink.endpoints, (wanLink.start.x + wanLink.end.x) / 2, wanLink.start.y - 2);
 }
 
