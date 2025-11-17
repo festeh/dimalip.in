@@ -1,7 +1,7 @@
 <template>
   <div class="about-page">
     <div class="about-content">
-      <h1 class="about-title">About Me</h1>
+      <h1 class="about-title">About me</h1>
 
       <div class="about-section">
         <p class="about-text">Proud dad & vibe coder</p>
