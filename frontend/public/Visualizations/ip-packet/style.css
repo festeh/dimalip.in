@@ -1,0 +1,233 @@
+/* Catppuccin Mocha Theme */
+:root {
+    --ctp-base: #1e1e2e;
+    --ctp-mantle: #181825;
+    --ctp-crust: #11111b;
+    --ctp-surface0: #313244;
+    --ctp-surface1: #45475a;
+    --ctp-surface2: #585b70;
+    --ctp-overlay0: #6c7086;
+    --ctp-overlay1: #7f849c;
+    --ctp-overlay2: #9399b2;
+    --ctp-subtext0: #a6adc8;
+    --ctp-subtext1: #bac2de;
+    --ctp-text: #cdd6f4;
+    --ctp-lavender: #b4befe;
+    --ctp-blue: #89b4fa;
+    --ctp-sapphire: #74c7ec;
+    --ctp-sky: #89dceb;
+    --ctp-teal: #94e2d5;
+    --ctp-green: #a6e3a1;
+    --ctp-yellow: #f9e2af;
+    --ctp-peach: #fab387;
+    --ctp-maroon: #eba0ac;
+    --ctp-red: #f38ba8;
+    --ctp-mauve: #cba6f7;
+    --ctp-pink: #f5c2e7;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: var(--ctp-base);
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    background-color: var(--ctp-mantle);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+    padding: 30px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--ctp-surface0);
+}
+
+h1 {
+    color: var(--ctp-lavender);
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--ctp-subtext0);
+    font-size: 1em;
+}
+
+.main-content {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+/* Packet Diagram Styles */
+.packet-diagram {
+    flex: 0 0 65%;
+    border: 2px solid var(--ctp-surface2);
+    border-radius: 4px;
+    padding: 15px;
+    background-color: var(--ctp-crust);
+}
+
+.packet-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.packet-table thead tr.bit-ruler {
+    height: 25px;
+}
+
+.packet-table th {
+    font-size: 0.75em;
+    color: var(--ctp-overlay1);
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    padding: 2px;
+    text-align: left;
+    border: none;
+}
+
+.packet-table th.bit-marker {
+    color: var(--ctp-overlay2);
+}
+
+.packet-table tbody tr {
+    border-bottom: 2px solid var(--ctp-crust);
+}
+
+.field {
+    border: 1px solid var(--ctp-surface2);
+    background-color: var(--ctp-surface0);
+    padding: 12px 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: center;
+    vertical-align: middle;
+    min-height: 60px;
+}
+
+.field:hover {
+    background-color: var(--ctp-surface1);
+    border-color: var(--ctp-overlay0);
+}
+
+.field.selected {
+    background-color: var(--ctp-blue);
+    border-color: var(--ctp-sapphire);
+    border-width: 2px;
+    color: var(--ctp-crust);
+}
+
+.field.selected .field-name,
+.field.selected .field-value {
+    color: var(--ctp-crust);
+}
+
+.field-name {
+    font-size: 0.85em;
+    font-weight: 600;
+    color: var(--ctp-text);
+    margin-bottom: 4px;
+}
+
+.field-value {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9em;
+    color: var(--ctp-subtext1);
+}
+
+/* Info Panel Styles */
+.info-panel {
+    flex: 0 0 35%;
+    background-color: var(--ctp-crust);
+    border: 1px solid var(--ctp-surface2);
+    border-radius: 4px;
+    padding: 25px;
+    position: sticky;
+    top: 20px;
+}
+
+#field-title {
+    color: var(--ctp-mauve);
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--ctp-blue);
+}
+
+.info-section {
+    margin-bottom: 25px;
+}
+
+.info-section h3 {
+    color: var(--ctp-sapphire);
+    font-size: 1.1em;
+    margin-bottom: 10px;
+}
+
+#field-description {
+    color: var(--ctp-subtext1);
+    font-size: 0.95em;
+    line-height: 1.7;
+}
+
+#field-examples {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9em;
+}
+
+#field-examples tr {
+    border-bottom: 1px solid var(--ctp-surface1);
+}
+
+#field-examples td {
+    padding: 10px 8px;
+    vertical-align: top;
+    color: var(--ctp-text);
+}
+
+.value-col {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    color: var(--ctp-peach);
+    white-space: nowrap;
+    width: 60px;
+}
+
+.protocol-col {
+    font-weight: 600;
+    color: var(--ctp-yellow);
+    white-space: nowrap;
+    width: 80px;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .main-content {
+        flex-direction: column;
+    }
+
+    .packet-diagram,
+    .info-panel {
+        flex: 1 1 100%;
+    }
+
+    .info-panel {
+        position: static;
+    }
+}

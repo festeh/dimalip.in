@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="400" height="300">
+  <!-- Background -->
+  <rect width="400" height="300" fill="#1e1e2e"/>
+
+  <!-- Container -->
+  <rect x="10" y="10" width="380" height="280" rx="4" fill="#181825" stroke="#585b70" stroke-width="2"/>
+
+  <!-- Title -->
+  <text x="200" y="35" font-family="Arial, sans-serif" font-size="16" fill="#b4befe" text-anchor="middle" font-weight="bold">IPv4 Packet Structure</text>
+
+  <!-- Packet diagram container -->
+  <rect x="20" y="50" width="360" height="230" rx="2" fill="#11111b" stroke="#585b70" stroke-width="1"/>
+
+  <!-- Bit markers -->
+  <text x="25" y="68" font-family="monospace" font-size="8" fill="#7f849c">0</text>
+  <text x="110" y="68" font-family="monospace" font-size="8" fill="#7f849c">8</text>
+  <text x="200" y="68" font-family="monospace" font-size="8" fill="#7f849c">16</text>
+  <text x="290" y="68" font-family="monospace" font-size="8" fill="#7f849c">24</text>
+  <text x="365" y="68" font-family="monospace" font-size="8" fill="#7f849c">31</text>
+
+  <!-- Row 1: Version, IHL, TOS, Total Length -->
+  <rect x="25" y="75" width="43" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="46.5" y="88" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Version</text>
+  <text x="46.5" y="98" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">4</text>
+
+  <rect x="68" y="75" width="43" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="89.5" y="88" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">IHL</text>
+  <text x="89.5" y="98" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">5</text>
+
+  <rect x="111" y="75" width="86" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="154" y="88" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Type of Service</text>
+  <text x="154" y="98" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">0x00</text>
+
+  <rect x="197" y="75" width="173" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="283.5" y="88" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Total Length</text>
+  <text x="283.5" y="98" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">0x002E (46)</text>
+
+  <!-- Row 2: Identification, Flags, Fragment Offset -->
+  <rect x="25" y="105" width="173" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="111.5" y="118" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Identification</text>
+  <text x="111.5" y="128" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">0x1A2B</text>
+
+  <rect x="198" y="105" width="32" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="214" y="118" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Flags</text>
+  <text x="214" y="128" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">0x2</text>
+
+  <rect x="230" y="105" width="140" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="300" y="118" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Fragment Offset</text>
+  <text x="300" y="128" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">0</text>
+
+  <!-- Row 3: TTL, Protocol (highlighted), Header Checksum -->
+  <rect x="25" y="135" width="86" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="68" y="148" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Time to Live</text>
+  <text x="68" y="158" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">64</text>
+
+  <!-- Protocol field - highlighted in blue -->
+  <rect x="111" y="135" width="86" height="30" fill="#89b4fa" stroke="#74c7ec" stroke-width="2"/>
+  <text x="154" y="148" font-family="Arial, sans-serif" font-size="7" fill="#11111b" text-anchor="middle" font-weight="bold">Protocol</text>
+  <text x="154" y="158" font-family="monospace" font-size="7" fill="#11111b" text-anchor="middle">6 (TCP)</text>
+
+  <rect x="197" y="135" width="173" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="283.5" y="148" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Header Checksum</text>
+  <text x="283.5" y="158" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">0x3F4A</text>
+
+  <!-- Row 4: Source IP -->
+  <rect x="25" y="165" width="345" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="197.5" y="178" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Source IP Address</text>
+  <text x="197.5" y="188" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">192.168.1.100</text>
+
+  <!-- Row 5: Destination IP -->
+  <rect x="25" y="195" width="345" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="197.5" y="208" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Destination IP Address</text>
+  <text x="197.5" y="218" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">93.184.216.34</text>
+
+  <!-- Row 6: Options -->
+  <rect x="25" y="225" width="345" height="30" fill="#313244" stroke="#585b70" stroke-width="1"/>
+  <text x="197.5" y="238" font-family="Arial, sans-serif" font-size="7" fill="#cdd6f4" text-anchor="middle">Options &amp; Padding</text>
+  <text x="197.5" y="248" font-family="monospace" font-size="7" fill="#bac2de" text-anchor="middle">(none)</text>
+</svg>

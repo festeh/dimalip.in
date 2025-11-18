@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPv4 Packet Structure Visualization</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>IPv4 Packet Structure</h1>
+            <p class="subtitle">Click on any field to learn more about it</p>
+        </header>
+
+        <div class="main-content">
+            <!-- Left side: Packet Diagram -->
+            <div class="packet-diagram">
+                <table class="packet-table">
+                    <!-- Bit position ruler -->
+                    <thead>
+                        <tr class="bit-ruler">
+                            <th class="bit-marker">0</th>
+                            <th colspan="3"></th>
+                            <th class="bit-marker">4</th>
+                            <th colspan="3"></th>
+                            <th class="bit-marker">8</th>
+                            <th colspan="3"></th>
+                            <th class="bit-marker">12</th>
+                            <th colspan="3"></th>
+                            <th class="bit-marker">16</th>
+                            <th colspan="3"></th>
+                            <th class="bit-marker">20</th>
+                            <th colspan="3"></th>
+                            <th class="bit-marker">24</th>
+                            <th colspan="3"></th>
+                            <th class="bit-marker">28</th>
+                            <th colspan="2"></th>
+                            <th class="bit-marker">31</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Row 1: Version, IHL, Type of Service, Total Length -->
+                        <tr>
+                            <td colspan="4" class="field" data-field="version">
+                                <div class="field-name">Version</div>
+                                <div class="field-value">4</div>
+                            </td>
+                            <td colspan="4" class="field" data-field="ihl">
+                                <div class="field-name">IHL</div>
+                                <div class="field-value">5</div>
+                            </td>
+                            <td colspan="8" class="field" data-field="tos">
+                                <div class="field-name">Type of Service</div>
+                                <div class="field-value">0x00</div>
+                            </td>
+                            <td colspan="16" class="field" data-field="total-length">
+                                <div class="field-name">Total Length</div>
+                                <div class="field-value">0x002E (46)</div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 2: Identification, Flags, Fragment Offset -->
+                        <tr>
+                            <td colspan="16" class="field" data-field="identification">
+                                <div class="field-name">Identification</div>
+                                <div class="field-value">0x1A2B</div>
+                            </td>
+                            <td colspan="3" class="field" data-field="flags">
+                                <div class="field-name">Flags</div>
+                                <div class="field-value">0x2</div>
+                            </td>
+                            <td colspan="13" class="field" data-field="fragment-offset">
+                                <div class="field-name">Fragment Offset</div>
+                                <div class="field-value">0</div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 3: TTL, Protocol, Header Checksum -->
+                        <tr>
+                            <td colspan="8" class="field" data-field="ttl">
+                                <div class="field-name">Time to Live</div>
+                                <div class="field-value">64</div>
+                            </td>
+                            <td colspan="8" class="field" data-field="protocol">
+                                <div class="field-name">Protocol</div>
+                                <div class="field-value">6 (TCP)</div>
+                            </td>
+                            <td colspan="16" class="field" data-field="checksum">
+                                <div class="field-name">Header Checksum</div>
+                                <div class="field-value">0x3F4A</div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 4: Source IP Address -->
+                        <tr>
+                            <td colspan="32" class="field" data-field="source-ip">
+                                <div class="field-name">Source IP Address</div>
+                                <div class="field-value">192.168.1.100</div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 5: Destination IP Address -->
+                        <tr>
+                            <td colspan="32" class="field" data-field="dest-ip">
+                                <div class="field-name">Destination IP Address</div>
+                                <div class="field-value">93.184.216.34</div>
+                            </td>
+                        </tr>
+
+                        <!-- Row 6: Options & Padding -->
+                        <tr>
+                            <td colspan="32" class="field" data-field="options">
+                                <div class="field-name">Options & Padding</div>
+                                <div class="field-value">(none)</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Right side: Information Panel -->
+            <div class="info-panel">
+                <div id="field-info">
+                    <h2 id="field-title">Protocol</h2>
+                    <div class="info-section">
+                        <h3>What it does</h3>
+                        <p id="field-description">
+                            The Protocol field identifies which protocol is used in the data portion of the IP packet.
+                            This tells the receiving system how to interpret and process the payload.
+                            Common values include TCP (6), UDP (17), and ICMP (1).
+                        </p>
+                    </div>
+                    <div class="info-section">
+                        <h3>Common Examples</h3>
+                        <table id="field-examples">
+                            <tr>
+                                <td class="value-col">1</td>
+                                <td class="protocol-col">ICMP</td>
+                                <td>Used for ping, traceroute, network diagnostics</td>
+                            </tr>
+                            <tr>
+                                <td class="value-col">6</td>
+                                <td class="protocol-col">TCP</td>
+                                <td>Reliable connection-oriented traffic (HTTP, SSH, etc.)</td>
+                            </tr>
+                            <tr>
+                                <td class="value-col">17</td>
+                                <td class="protocol-col">UDP</td>
+                                <td>Fast connectionless traffic (DNS, streaming, gaming)</td>
+                            </tr>
+                            <tr>
+                                <td class="value-col">41</td>
+                                <td class="protocol-col">IPv6</td>
+                                <td>IPv6 encapsulated in IPv4 (tunneling)</td>
+                            </tr>
+                            <tr>
+                                <td class="value-col">50</td>
+                                <td class="protocol-col">ESP</td>
+                                <td>Encrypted IPsec traffic</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -6,6 +6,8 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+
+	"github.com/BurntSushi/toml"
 )
 
 type HelloResponse struct {
@@ -21,13 +23,70 @@ type VisualizationCard struct {
 	Icon  string `json:"icon,omitempty"`
 }
 
-var visualizationCards = []VisualizationCard{
-	{
-		ID:    "ipv4-layer3",
-		Title: "IP Routing",
-		URL:   "/Visualizations/internet-protocol/ipv4-visualization.html",
-		Icon:  "/Visualizations/internet-protocol/icon.png",
-	},
+// VisualizationMetadata represents the structure of metadata.toml files.
+type VisualizationMetadata struct {
+	Title       string `toml:"title"`
+	Description string `toml:"description"`
+}
+
+var visualizationCards []VisualizationCard
+
+// loadVisualizations scans the Visualizations directory and loads metadata from TOML files.
+func loadVisualizations(distPath string) error {
+	vizPath := filepath.Join(distPath, "Visualizations")
+
+	// Read all subdirectories in the Visualizations folder
+	entries, err := os.ReadDir(vizPath)
+	if err != nil {
+		return err
+	}
+
+	var cards []VisualizationCard
+
+	for _, entry := range entries {
+		if !entry.IsDir() {
+			continue
+		}
+
+		folderName := entry.Name()
+		metadataPath := filepath.Join(vizPath, folderName, "metadata.toml")
+
+		// Check if metadata.toml exists
+		if _, err := os.Stat(metadataPath); os.IsNotExist(err) {
+			log.Printf("Skipping %s: no metadata.toml found", folderName)
+			continue
+		}
+
+		// Parse the TOML file
+		var metadata VisualizationMetadata
+		if _, err := toml.DecodeFile(metadataPath, &metadata); err != nil {
+			log.Printf("Error parsing metadata.toml in %s: %v", folderName, err)
+			continue
+		}
+
+		// Look for icon file (icon.png, icon.svg, icon.jpg, etc.)
+		iconPath := ""
+		iconPattern := filepath.Join(vizPath, folderName, "icon.*")
+		if matches, err := filepath.Glob(iconPattern); err == nil && len(matches) > 0 {
+			// Use the first matching icon file
+			iconPath = "/Visualizations/" + folderName + "/" + filepath.Base(matches[0])
+		}
+
+		// Construct the VisualizationCard
+		card := VisualizationCard{
+			ID:    folderName,
+			Title: metadata.Title,
+			URL:   "/Visualizations/" + folderName + "/index.html",
+			Icon:  iconPath,
+		}
+
+		cards = append(cards, card)
+		log.Printf("Loaded visualization: %s (%s) with icon: %s", card.Title, card.ID, iconPath)
+	}
+
+	visualizationCards = cards
+	log.Printf("Total visualizations loaded: %d", len(visualizationCards))
+	return nil
 }
 
 func main() {
@@ -37,6 +96,11 @@ func main() {
 	distPath := os.Getenv("DIST_PATH")
 	if distPath == "" {
 		distPath = filepath.Join("..", "frontend", "dist")
+	}
+
+	// Load visualizations from metadata.toml files
+	if err := loadVisualizations(distPath); err != nil {
+		log.Printf("Warning: Failed to load visualizations: %v", err)
 	}
 
 	// Create a file server for static files
